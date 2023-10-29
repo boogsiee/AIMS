@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import Sidebar from '../Components/Sidebar';
 
 const Home = () => {
   return (
     <>
-      <h1>home</h1>
+      <div class="home-main">
+        <Sidebar/>
+        <div class="main-page">home</div>
+
+        
+      </div>
     </>
   )
 }
