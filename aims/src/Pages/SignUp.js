@@ -9,7 +9,7 @@ const SignUp = () => {
         <div class="main">
           <div class="user-main2">
             <div id="title-left">
-              <h1 class="prompt-title">Come Join Us!</h1>
+              <h2 class="prompt-title">Come Join Us!</h2>
               <p id="desc">Register your account. It will ll be verified by the Admin, shortly.</p>
             </div>
             

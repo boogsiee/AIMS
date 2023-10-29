@@ -9,7 +9,7 @@ const Login = () => {
             <div class="main">
               <div class="user-main">
                 <div id="title-left">
-                  <h1 class="prompt-title">Welcome Home!</h1>
+                  <h2 class="prompt-title">Welcome Home!</h2>
                   <p id="desc">Log in to your account and share your stories to the people of your Alma Mater.</p>
                 </div> <br/>
                 
