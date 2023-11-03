@@ -13,6 +13,9 @@ p{
 h1{
   font-weight: 900;
 }
+hr{
+  width:90%;
+}
 .main {
   width: 100%;
   text-align: center;
@@ -351,9 +354,8 @@ h1{
   flex-wrap: wrap;
   justify-content: start;
   width: 95%;
-  height:100vh;
+  height:30vh;
   padding: 10px;
-  overflow-y: scroll;
 }
 .records-cont div{
   width: 120px;
@@ -366,13 +368,77 @@ h1{
   color:#0A2127;
   cursor: pointer;
 }
-.records-cont div:hover{
+.records-cont div:hover, #batch-chip:hover{
   background:#0A2127;
   color:aliceblue;
   border:none;
   box-shadow: -10px 10px 153px -2px rgba(0,0,0,0.56);
   -webkit-box-shadow: -10px 10px 153px -2px rgba(0,0,0,0.56);
   -moz-box-shadow: -10px 10px 153px -2px rgba(0,0,0,0.56);
+}
+/* Profile */
+.profile-main{
+  padding:10px;
+}
+.profile{
+  display: flex;
+  flex-direction: row;
+}
+.profile-box{
+  padding: 15px;
+  text-align: center;margin-right: 20px;
+}
+.pic-holder{
+  width:300px;
+  height:300px;
+  overflow: hidden;
+  border: 2px solid black;
+  border-radius: 50%;;
+}
+#profile-pic{
+  height:300px;
+  width:300px;
+}
+#batch-chip{
+  background: #D9D9D9;
+  width: 100px;
+  padding:5px;
+  text-align: center;
+  border-radius: 15px;
+  font-weight: 900;
+}
+.profile-text{
+  display:flex;
+  flex-direction: column;
+}
+.profile-desc{
+  margin-bottom: 15px;
+}
+.profile-chip{
+  width:80%;
+  display:flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: start;
+}
+
+.profile-chip div{
+  margin-right: 15px;
+  text-align: center;
+  border: 2px solid #0A2127;
+  border-radius: 20px;
+  padding: 5px 10px 5px 10px;
+}
+.prof-story-box{
+  display: flex;
+  flex-direction: row;
+  height: 250px;
+}
+.story-tit{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:80%;
 }
 /* Animated Background */
 @keyframes animate {
