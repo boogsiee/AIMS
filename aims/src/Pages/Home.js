@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from '../Components/Sidebar';
 import Social from '../Components/Stories'
 import Announcements from '../Components/Announcements';
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -18,9 +19,11 @@ const Home = () => {
             </div>
             <div class="profile-btn">
                 <h3>Profile</h3>
-                <div class="profile-pic">
-                  <img src="profile.png" alt="pic" />
-                </div>
+                <Link to="/profile">
+                  <div class="profile-pic">
+                    <img src="profile.png" alt="pic" />
+                  </div>
+                </Link>
               </div>
           </div>
 
@@ -35,12 +38,14 @@ const Home = () => {
               <Announcements/>
               <div class="access">
                 <div class="nav">
-                  <a href=" ">
+                  <Link to="/profile">
                     <img width="40" height="40" src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/48/external-Write-business-tanah-basah-basic-outline-tanah-basah.png" alt="external-Write-business-tanah-basah-basic-outline-tanah-basah"/>
-                  </a>
+                  </Link>
                 </div>
                 <div>
-                  <button id="browse-rec"> Browse Records</button>
+                  <Link to="/records" type="button">
+                    <button id="browse-rec"> Browse Records</button>
+                  </Link>
                 </div>
               </div>
             </div>

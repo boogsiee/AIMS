@@ -46,7 +46,7 @@ const SignUp = () => {
                   <input type="text" id="batch" name="batch" placeholder="Batch" required />
                 </div>
               </div>
-             
+            
               <label for="username">Username</label> <br/>
               <input type="text" id="username" name="username" placeholder="Enter your username" required />
               <br/>

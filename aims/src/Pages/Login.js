@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ABackground from '../Components/ABackground';
 import { Link } from "react-router-dom";
 

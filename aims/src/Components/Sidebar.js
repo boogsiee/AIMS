@@ -1,16 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { Link } from "react-router-dom";
+
 
 const Sidebar = () => {
-  return (
+return (
     <>
         <div className="sidebar">
             <div class="nav">
                 <div>
-                    <a  href="/home"><img width="40" height="40" src="https://img.icons8.com/material-rounded/24/home.png" alt="home"/></a>
+                    <Link  to="/home" type="button">
+                        <img width="40" height="40" src="https://img.icons8.com/material-rounded/24/home.png" alt="home"/>
+                    </Link>
                 </div>
     
                 <div>
-                    <a href=" "><img width="40" height="40" src="https://img.icons8.com/material-rounded/48/search.png" alt="search"/></a>
+                    <Link  to="/search" type="button">
+                        <img width="40" height="40" src="https://img.icons8.com/material-rounded/48/search.png" alt="search"/>
+                    </Link>
                 </div>
                 
                 <div>
