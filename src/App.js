@@ -10,6 +10,7 @@ import Records from './Pages/Records';
 import Profile from './Pages/Profile';
 import Dashboard from './Pages/Dashboard';
 import Search from './Pages/Search';
+import RecordLists from './Pages/RecordLists';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/profile" component={Profile}/>
           <Route path="/dashboard" component={Dashboard}/>
           <Route path="/search" component={Search}/>
+          <Route path="/list" component={RecordLists}/>
         </Switch>
       </div>
     </Router>

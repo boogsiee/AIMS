@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../Components/Sidebar';
 
+import { Link } from "react-router-dom";
+
 const Records = () => {
   const [batchYears, setBatchYears] = useState([]);
 
@@ -30,15 +32,18 @@ const Records = () => {
         <div className='records-main'>
           <h1>Records</h1>
           <div className='records-cont'>
-            {batchYears.length === 0 ? (
-              <h2>There is no batch existing.</h2>
-            ) : (
+            <Link to="/list" className='records-btn'>
+              {batchYears.length === 0 ? (
+                <h2>There is no batch existing.</h2>
+              ) : (
               batchYears.map((year) => (
                 <div key={year} className='batch-card'>
-                  <h2>{year}</h2>
+                  <h2> Batch {year}</h2>
                 </div>
               ))
             )}
+            </Link>
+            
           </div>
         </div>
       </div>
