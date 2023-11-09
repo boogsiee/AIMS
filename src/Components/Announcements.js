@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Announcements = () => {
-  return (
+return (
     <div class="ann-main">
         <div class="ann-card">
             <h4>The title of the announcement</h4>

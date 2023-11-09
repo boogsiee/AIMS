@@ -8,6 +8,7 @@ a, button, link, Link{
   font-weight: 700;
 }
 p{
+  font-size: 12px;
   font-weight: 400;
 }
 h1{
@@ -90,6 +91,7 @@ input{
   border-radius: 8px;
   background: #0A2127;
   color:aliceblue;
+  height:45px;
 }
 form .usersname, form .contact{
   width:100%;
@@ -103,6 +105,49 @@ form .usersname, form .contact{
 }
 #username-tab{
   width:50%;
+} 
+#sign-select{
+  width:90%;
+  height: 40px;
+  padding: 5px;
+  font-size: 15px;
+  border-width: 0px;
+  background: rgba( 242, 241, 241, 0.65 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 1px );
+  -webkit-backdrop-filter: blur( 1px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  border-style: hidden;
+  border-radius: 6px;
+  color: #000000;
+  box-shadow: 0px 0px 0px rgba(66,66,66,.61);
+}
+#sign-input{
+  width:90%;
+  height: 30px;
+  padding: 5px;
+  font-size: 17px;
+  border-width: 0px;
+  background: rgba( 242, 241, 241, 0.65 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 1px );
+  -webkit-backdrop-filter: blur( 1px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  color: #000000;
+  border-style: hidden;
+  border-radius: 6px;
+  box-shadow: 0px 0px 0px rgba(66,66,66,.61);
+}
+.user-btn{
+  width: 95%;
+  padding: 10px;
+  cursor:pointer;
+  border: none;
+  border-radius: 8px;
+  background: #0A2127;
+  color:aliceblue;
 }
 /* home */
 .home-main{
