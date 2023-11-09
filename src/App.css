@@ -53,7 +53,7 @@ form input:focus {
   flex-direction: column;
 }
 .user-main2{
-  height: 550px;
+  height: 575px;
   margin-top: 40px;
   background: rgba( 255, 255, 255, 0.35 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -350,26 +350,36 @@ h1{
 .search-cat{
   display:flex;
   justify-content: space-between;
-  width:450px;
+  width:800px;
   padding:10px;
 }
 .search-cat select{
   padding:10px;
   padding-right: 20px;
   border-radius:15px;
-  background:#0A2127;
-  border: 1px solid grey;
-  color: white;
+  background:#D9D9D9;
+  color:#0A2127;
 }
 .search-cat select:hover{
   background: navy;
   border:#D9D9D9 solid 1px;
+  color:aliceblue
 }
 .search-cat select option{
   background: #D9D9D9;
   color: #0A2127;
   padding:5px;
-  font-size:18px;
+  font-size:15px;
+}
+.search-btn{
+  width: 30%;
+  padding: 10px;
+  cursor:pointer;
+  border: none;
+  border-radius: 8px;
+  background: #0A2127;
+  color:aliceblue;
+  height:45px;
 }
 .result-box{
   width:90%;
