@@ -48,7 +48,7 @@ app.post('/signup', (req, res) => {
 });
 
 
-app.post('/login', (req, res) => {
+app.post('/', (req, res) => {
     const { password, username} = req.body;
 
 const user = null;
@@ -62,6 +62,10 @@ const user = null;
     res.status(401).json({ error: 'Invalid credentials' });
     return;
     }
+    if (user.username !== username) {
+        res.status(401).json({ error: 'Invalid credentials' });
+        return;
+        }
 
 const userType = null;
 

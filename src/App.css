@@ -69,7 +69,7 @@ form input:focus {
 input{
   width:90%;
   height: 35px;
-  padding: 5px;
+  padding-left:20px;
   font-size: 17px;
   border-width: 0px;
   background: rgba( 242, 241, 241, 0.65 );
@@ -320,14 +320,14 @@ h1{
   background:#0A2127;
 }
 /* Search */
-.search-main{
+.search-main, .data-pane{
   display:flex;
   flex-direction: column;
   padding:20px;
   padding-top: 10px;
   width:90%;
 }
-.search-main h2{
+.search-main h2, .main-page h2{
   padding-left:15px;
   font-size: 36px;
   font-weight: 900;
@@ -495,6 +495,49 @@ h1{
   justify-content: space-between;
   width:80%;
 }
+.main-page-terminal{
+  padding:0px;
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+}
+.data-pane{
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+}
+.data-terminal{
+  width:500px;
+  margin-right: 10px;;
+}
+.add-item-cont{
+  display: flex;
+  flex-direction: column;
+}
+.add-item{
+  height:80px;
+  display: flex;
+  flex-direction: column;
+}
+.add-item input{
+  font-size: 14px;
+  height: 30px;
+  width:50%;
+}
+.class-desc{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.class-desc input{
+  width: 100px;
+}
+.rec-add{
+  width:800px;
+  border:#000000 2px ssolid;
+}
+
 /* Animated Background */
 @keyframes animate {
   0%{

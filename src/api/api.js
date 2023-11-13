@@ -1,9 +1,20 @@
 const express = require('express');
-const db = require('./db'); // Adjust the path based on your project structure
+const sqlite3 = require('sqlite3');
+const cors = require('cors');
 
-const router = express.Router();
+const app = express();
+const port = 3000;
 
-router.get('/batch', (req, res) => {
+app.use(cors());
+app.use(express.json());
+
+const db = new sqlite3.Database('C:\\Users\\Workplace\\Desktop\\aims\\database\\aims-db.db');
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+app.get('/batch', (req, res) => {
     db.all('SELECT * FROM Batch', (err, rows) => {
         if (err) {
             console.error(err);
@@ -15,7 +26,7 @@ router.get('/batch', (req, res) => {
 });
 
 
-router.get('/posts', (req, res) => {
+app.get('/posts', (req, res) => {
     db.all('SELECT * FROM Posts', (err, rows) => {
         if (err) {
             console.error(err);
@@ -27,7 +38,7 @@ router.get('/posts', (req, res) => {
 });
 
 
-router.get('/sections', (req, res) => {
+app.get('/sections', (req, res) => {
     db.all('SELECT * FROM Sections', (err, rows) => {
         if (err) {
             console.error(err);
@@ -38,7 +49,7 @@ router.get('/sections', (req, res) => {
     });
 });
 
-router.get('/strands', (req, res) => {
+app.get('/strands', (req, res) => {
     db.all('SELECT * FROM Strands', (err, rows) => {
         if (err) {
             console.error(err);
@@ -50,7 +61,7 @@ router.get('/strands', (req, res) => {
 });
 
 
-router.get('/users', (req, res) => {
+app.get('/users', (req, res) => {
     db.all('SELECT * FROM User', (err, rows) => {
         if (err) {
             console.error(err);
@@ -61,7 +72,7 @@ router.get('/users', (req, res) => {
     });
 });
 
-router.get('/user-types', (req, res) => {
+app.get('/user-types', (req, res) => {
     db.all('SELECT * FROM UserType', (err, rows) => {
         if (err) {
             console.error(err);
@@ -72,7 +83,7 @@ router.get('/user-types', (req, res) => {
     });
 });
 
-router.get('/image-attributes', (req, res) => {
+app.get('/image-attributes', (req, res) => {
     db.all('SELECT * FROM ImageAttributes', (err, rows) => {
         if (err) {
             console.error(err);
@@ -83,7 +94,7 @@ router.get('/image-attributes', (req, res) => {
     });
 });
 
-router.get('/images', (req, res) => {
+app.get('/images', (req, res) => {
     db.all('SELECT * FROM Images', (err, rows) => {
         if (err) {
             console.error(err);
@@ -93,5 +104,5 @@ router.get('/images', (req, res) => {
         res.json(rows);
     });
 });
-module.exports = router;
+module.exports = app;
 

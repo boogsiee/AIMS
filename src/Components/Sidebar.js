@@ -24,9 +24,11 @@ return (
                 </div>
 
                 <div>
-                    <a href=" ">
-                        <img width="40" height="40" src="https://img.icons8.com/sf-black-filled/64/pen.png" alt="pen"/>
-                    </a>
+                    <Link  to="/terminal" type="button">
+                        <a href=" ">
+                            <img width="40" height="40" src="https://img.icons8.com/sf-black-filled/64/pen.png" alt="pen"/>
+                        </a>
+                    </Link>
                 </div>
 
             </div>

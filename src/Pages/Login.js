@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ABackground from '../Components/ABackground';
 
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    // Perform login logic here (e.g., send a request to your server)
+  // const handleLogin = async () => {
+  //   // Perform login logic here (e.g., send a request to your server)
 
-    try {
-      const response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
+  //   try {
+  //     const response = await fetch('/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         username,
+  //         password,
+  //       }),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (response.ok) {
-        console.log(data.message); // Successful login
-        // Redirect or perform any action upon successful login
-      } else {
-        console.error(data.error); // Failed login
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-    }
-  };
+  //     if (response.ok) {
+  //       console.log(data.message); // Successful login
+  //       // Redirect or perform any action upon successful login
+  //     } else {
+  //       console.error(data.error); // Failed login
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during login:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -52,8 +52,8 @@ const Login = () => {
                     id="username"
                     name="username"
                     placeholder="Enter your username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    // value={username}
+                    // onChange={(e) => setUsername(e.target.value)}
                     required
                   />
 
@@ -65,14 +65,18 @@ const Login = () => {
                     id="password"
                     name="password"
                     placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    // value={password}
+                    // onChange={(e) => setPassword(e.target.value)}
                     required
                   />
 
                   <br/> <br/>
                   <Link type="button" to="/home">
-                    <button type="button" onClick={handleLogin} className="user-btn"> LOG IN</button>
+                    <button type="button" 
+                    // onClick={handleLogin} 
+                    className="user-btn"> 
+                    LOG IN
+                    </button>
                   </Link>
                   <br/> <br/>
                 </form>

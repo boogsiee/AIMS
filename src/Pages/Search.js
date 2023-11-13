@@ -89,7 +89,7 @@ return (
         
                 <div className='suggest-box'>
                     <h3>Browse</h3>
-                    <div className='suggest-box-inner'>
+                    {/* <div className='suggest-box-inner'>
                         {suggestedChips.length === 0 ? (
                             <h4>No suggestions available.</h4>
                         ) : (
@@ -99,7 +99,7 @@ return (
                         </div>
                             ))
                         )};
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

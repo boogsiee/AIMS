@@ -11,6 +11,7 @@ import Profile from './Pages/Profile';
 import Dashboard from './Pages/Dashboard';
 import Search from './Pages/Search';
 import RecordLists from './Pages/RecordLists';
+import Terminal from './Pages/Terminals';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard}/>
           <Route path="/search" component={Search}/>
           <Route path="/list" component={RecordLists}/>
+          <Route path="/terminal" component={Terminal}/>
         </Switch>
       </div>
     </Router>

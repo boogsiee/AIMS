@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import Sidebar from '../Components/Sidebar';
 import Social from '../Components/Stories';
 import Announcements from '../Components/Announcements';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const history = useHistory();
+  // const history = useHistory();
 
-  useEffect(() => {
-    const isAuthenticated = false;
+  // useEffect(() => {
+  //   const isAuthenticated = false;
 
-    if (!isAuthenticated) {
-      history.push('/');
-    }
-  }, [history]);
+  //   if (!isAuthenticated) {
+  //     history.push('/');
+  //   }
+  // }, [history]);
 
   return (
     <>
