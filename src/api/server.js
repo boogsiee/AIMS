@@ -21,7 +21,6 @@ const isAuthenticated = (req, res, next) => {
 // Create a SQLite database connection
 const db = new sqlite3.Database('aims-db.db');
 
-// Example route for user registration
 app.post('/signup', (req, res) => {
     const { username, password, user_type_role } = req.body;
     const checkUserQuery = 'SELECT * FROM User WHERE username = ?';
@@ -58,14 +57,15 @@ const user = null;
     return;
     }
 
+    if (user.username !== username) {
+        res.status(401).json({ error: 'Invalid credentials' });
+        return;
+    }
+    
     if (user.password !== password) {
     res.status(401).json({ error: 'Invalid credentials' });
     return;
     }
-    if (user.username !== username) {
-        res.status(401).json({ error: 'Invalid credentials' });
-        return;
-        }
 
 const userType = null;
 

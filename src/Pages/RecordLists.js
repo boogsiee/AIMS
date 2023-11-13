@@ -1,59 +1,41 @@
 import React from 'react';
 import Sidebar from '../Components/Sidebar';
 import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
-function samePageLinkNavigation(event) {
-  if (
-    event.defaultPrevented ||
-    event.button !== 0 ||
-    event.metaKey ||
-    event.ctrlKey ||
-    event.altKey ||
-    event.shiftKey
-  ) {
-    return false;
-  }
-  return true;
-}
+import Section from '../Components/Section';
 
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        // Routing libraries handle this, you can remove the onClick handle when using them.
-        if (samePageLinkNavigation(event)) {
-          event.preventDefault();
-        }
-      }}
-      {...props}
-    />
-  );
-}
 
 const RecordLists = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState('1');
+
   const handleChange = (event, newValue) => {
-    if (
-      event.type !== 'click' ||
-      (event.type === 'click' && samePageLinkNavigation(event))
-    ) {
-      setValue(newValue);
-    }
+    setValue(newValue);
   };
-  return (
+return (
     <div>
       <div className='home-main'> 
         <Sidebar/>
         <div className='records-main'>
           <h1>Records</h1>
-          <Box sx={{ width: '100%' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-              <LinkTab label="Strand 1" href="/drafts" />
-              <LinkTab label="Strand 2" href="/trash" />
-            </Tabs>
+          <Box sx={{ width: '100%', typography: 'body1' }}>
+            <TabContext value={value}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <TabList onChange={handleChange} aria-label="lab API tabs example">
+                  <Tab label="Strand 1" value="1" />
+                  <Tab label="Strand 2" value="2" />
+                </TabList>
+            </Box>
+            <TabPanel value="1">
+              <div>
+                <Section/>
+              </div>
+            </TabPanel>
+            <TabPanel value="2">Item Two</TabPanel>
+            </TabContext>
           </Box>
           
         </div>
