@@ -167,6 +167,10 @@ h1{
   display:flex;
   flex-direction: column;
 }
+
+#select-suffix-box{
+  font-size: 15px;
+}
 .personal{
   display:flex;
   flex-direction: row;
@@ -413,7 +417,7 @@ h1{
   padding: 10px;
 }
 .records-cont div{
-  width: 120px;
+  width: 200px;
   text-align: center;
   border-radius:50px;
   height:35px;
@@ -521,8 +525,8 @@ h1{
 }
 .add-item input{
   font-size: 14px;
-  height: 30px;
-  width:50%;
+  height: 40px;
+  width:90%;
 }
 .class-desc{
   display: flex;
@@ -534,8 +538,8 @@ h1{
   width: 100px;
 }
 .rec-add{
-  width:800px;
-  border:#000000 2px ssolid;
+  padding-left:20px;
+  width:900px;
 }
 
 /* Animated Background */

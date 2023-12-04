@@ -1,48 +1,149 @@
-import React from 'react'
-import { DataGrid } from '@mui/x-data-grid';
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { useLocation } from "react-router-dom";
 
-
-const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
-    { field: 'middleName', headerName: 'Middle name', width: 130,},
-    { field: 'suffix', headerName: 'Suffix', width: 5,},
-    { field: 'batch', headerName: 'Batch Year', width: 5,},
-    { field: 'strand', headerName: 'Strand', width: 25,},
-    { field: 'section', headerName: 'Section', width: 5,},
-    
-    ];
-    const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-    ];
 const AddItems = () => {
-    return (    
-        <div>
-            <h2>Recently Added Alumna</h2> <br/>
-            <div style={{ height: 500, width: '100%' }}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        initialState={{
-                        pagination: {
-                        paginationModel: { page: 10, pageSize: 10},
-                        },
-                    }}
-        pageSizeOptions={[0, 10]}
-        checkboxSelection
-    />
-    </div>
-        </div>
-    )
-}
+  const path = useLocation();
+  const selectedUserId = path.pathname.split("/")[2];
 
-export default AddItems
+  const [rows, setRows] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/users");
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data. Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      const rowsWithIds = data.map((row, index) => ({
+        ...row,
+        id: index + 1,
+        firstName: row.user_fname,
+        midName: row.user_mname,
+        lastName: row.user_lname,
+        suffix: row.user_suffix,
+        batch: row.batch_year,
+        strand: row.strand_name,
+        section: row.section_number,
+      }));
+
+      setRows(rowsWithIds);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+      // Handle the error, e.g., display an error message to the user
+    }
+  };
+
+  const handleUpdate = useCallback(
+    async (userId) => {
+      try {
+        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userId),
+        });
+
+        if (response.ok) {
+          // Handle successful update, e.g., show a success message
+          console.log("User updated successfully!");
+        } else {
+          // Handle update failure, e.g., show an error message
+          console.error("Failed to update user");
+        }
+      } catch (error) {
+        console.error("Error updating user:", error);
+      }
+    },
+    [selectedUserId]
+  );
+
+  const handleDelete = useCallback(async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete data");
+      }
+
+      // Update the state by filtering out the deleted item
+      setRows((prevRows) => prevRows.filter((row) => row.user_ID !== userId));
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+  }, []);
+
+  const columns = useMemo(
+    () => [
+      { field: "user_ID", headerName: "User ID", width: 50 },
+      { field: "firstName", headerName: "First name", width: 130 },
+      { field: "midName", headerName: "Middle name", width: 130 },
+      { field: "lastName", headerName: "Last name", width: 130 },
+      { field: "suffix", headerName: "Suffix", width: 50 },
+      { field: "batch", headerName: "Batch", width: 60 },
+      { field: "strand", headerName: "Strand", width: 100 },
+      { field: "section", headerName: "Section", width: 60 },
+      {
+        field: "deletebtn",
+        headerName: "Delete",
+        width: 100,
+        renderCell: (params) => (
+          <DeleteButton
+            id={params.row.id}
+            onDelete={() => handleDelete(params.row.user_ID)}
+          />
+        ),
+      },
+      {
+        field: "updatebtn",
+        headerName: "Update",
+        width: 100,
+        renderCell: (params) => (
+          <UpdateButton
+            id={params.row.id}
+            onUpdate={() => handleUpdate(params.row)}
+          />
+        ),
+      },
+    ],
+    [handleDelete, handleUpdate]
+  );
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <h2>Recently Added Alumni</h2> <br />
+      <div style={{ height: 350, width: "100%" }}>
+        <DataGrid rows={rows} columns={columns} getRowId={(row) => row.id} />
+      </div>
+      <br />
+    </div>
+  );
+};
+
+const UpdateButton = React.memo(function ({ id, onUpdate }) {
+  const handleUpdate = () => {
+    onUpdate(id);
+  };
+
+  return <button onClick={handleUpdate}>Update</button>;
+});
+
+const DeleteButton = React.memo(function ({ id, onDelete }) {
+  const handleDelete = () => {
+    onDelete(id);
+  };
+
+  return <button onClick={handleDelete}>Delete</button>;
+});
+
+export default AddItems;

@@ -1,54 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import Sidebar from '../Components/Sidebar';
-
+import React, { useState, useEffect } from "react";
+import Sidebar from "../Components/Sidebar";
 import { Link } from "react-router-dom";
 
 const Records = () => {
-  const [batchYears, setBatchYears] = useState([]);
+  const [batchData, setBatchData] = useState([]);
 
   useEffect(() => {
-    const fetchBatchYears = async () => {
+    const fetchBatchData = async () => {
       try {
-        const response = await fetch('/api/batch'); // Replace with your actual endpoint
-        const data = await response.json();
+        const response = await fetch("http://localhost:3000/batch_years");
 
-        if (response.ok) {
-          setBatchYears(data.batchYears);
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Failed to fetch batch data:", errorData.error);
+          return;
+        }
+
+        const data = await response.json();
+        console.log("Fetched Batch Data:", data);
+
+        if (Array.isArray(data.batchYears)) {
+          setBatchData(data.batchYears);
         } else {
-          console.error('Failed to fetch batch years:', data.error);
+          console.error("Received data has unexpected format:", data);
         }
       } catch (error) {
-        console.error('Error during batch years fetch:', error);
+        console.error("Error during batch data fetch:", error.message);
       }
     };
 
-    fetchBatchYears();
+    fetchBatchData();
   }, []);
 
+  // The map function should be inside the return statement
   return (
     <div>
-      <div className='home-main'> 
-        <Sidebar/>
-        <div className='records-main'>
+      <div className="home-main">
+        <Sidebar />
+        <div className="records-main">
           <h1>Records</h1>
-          <div className='records-cont'>
-            <Link to="/list" className='records-btn'>
-              {batchYears.length === 0 ? (
-                <h2>There is no batch existing.</h2>
-              ) : (
-              batchYears.map((year) => (
-                <div key={year} className='batch-card'>
-                  <h2> Batch {year}</h2>
-                </div>
-              ))
+          <div className="records-cont">
+            {batchData.length === 0 ? (
+              <h2>There is no batch existing.</h2>
+            ) : (
+              batchData.map((batch) => {
+                console.log("Batch Object:", batch);
+
+                return (
+                  <Link
+                    key={batch.batch_number}
+                    to={`/batch?year=${batch}`}
+                    className="records-btn"
+                  >
+                    <div className="batch-card">
+                      <h2>Batch {batch}</h2>
+                    </div>
+                  </Link>
+                );
+              })
             )}
-            </Link>
-            
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Records;
