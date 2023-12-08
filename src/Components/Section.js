@@ -6,13 +6,13 @@ import Typography from "@mui/material/Typography";
 import NameList from "./NameList";
 import { useLocation } from "react-router-dom";
 
-const Section = () => {
+const Section = ({ strandName }) => {
   const pathname = useLocation();
   const query = pathname.search.split("?year=");
   const batchYear = query.length > 1 ? query[1] : undefined;
 
   const [sections, setSections] = useState([]);
-  const [sectionDetails, setSectionDetails] = useState({});
+  const [setSectionDetails] = useState({});
 
   useEffect(() => {
     const fetchSections = async () => {
@@ -48,24 +48,7 @@ const Section = () => {
     sections.forEach((section) => {
       fetchSectionDetails(section);
     });
-  }, [sections]);
-
-  const renderSectionDetails = (sectionId) => {
-    const details = sectionDetails[sectionId];
-
-    if (!details) {
-      return <div> </div>;
-    }
-
-    return (
-      <div>
-        {/* Render details for the section based on the 'details' object */}
-        <Typography>{`Section Number: ${details.section_number}`}</Typography>
-        <Typography>{`Image ID: ${details.ImageID}`}</Typography>
-        {/* Add more details as needed */}
-      </div>
-    );
-  };
+  });
 
   if (typeof batchYear == "undefined") {
     return <div>No batch available</div>;
@@ -84,9 +67,9 @@ const Section = () => {
             </AccordionSummary>
             <AccordionDetails>
               <NameList
-                strand_name="desiredStrand"
                 section_number={section.section_id}
                 batch_year={batchYear}
+                strand_name={strandName}
               />
             </AccordionDetails>
           </Accordion>

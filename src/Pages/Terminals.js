@@ -12,7 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useLocation } from "react-router-dom";
 
-const initialState = {
+const initialStateUser = {
   firstName: "",
   lastName: "",
   midName: "",
@@ -26,13 +26,16 @@ const Terminals = () => {
   const path = useLocation();
   const selectedUserId = path.pathname.split("/")[2];
 
-  const [user, setUser] = useState(initialState);
-  const [value, setValue] = React.useState("1");
+  const [user, setUser] = useState(initialStateUser);
+  const [year, setBatch] = useState("");
+  const [strand, setStrand] = useState("");
+  const [value, setValue] = useState("1");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
+  const handleAddAlumna = async () => {
     try {
       const url =
         typeof selectedUserId !== "undefined"
@@ -45,7 +48,10 @@ const Terminals = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify({
+          ...user,
+          suffix: user.suffix,
+        }),
       });
 
       if (response.ok) {
@@ -56,20 +62,74 @@ const Terminals = () => {
         );
       }
     } catch (error) {
-      console.error("Error submitting data:", error);
+      console.error("Error submitting Alumna data:", error);
     }
   };
 
-  // const [suffix] = React.useState("");
+  const handleAddBatch = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/batch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ year: year }),
+      });
 
-  const handleSelect = (event) => {
-    setUser((prevState) => ({
-      ...prevState,
-      suffix: event.target.value,
-    }));
+      if (response.ok) {
+        alert("Batch added successfully!");
+      } else {
+        throw new Error("Failed to add batch");
+      }
+    } catch (error) {
+      console.error("Error adding batch:", error);
+    }
   };
 
-  // Inside the useEffect hook in the "Add Alumna" tab
+  const handleAddStrand = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/strand", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ strand: strand }),
+      });
+
+      if (response.ok) {
+        alert("Strand added successfully!");
+      } else {
+        throw new Error("Failed to add strand");
+      }
+    } catch (error) {
+      console.error("Error adding strand:", error);
+    }
+  };
+
+  const handleAddStudentClassData = async () => {
+    try {
+      alert("Student Class Data added successfully!");
+    } catch (error) {
+      console.error("Error adding student class data:", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (value === "1") {
+      // Handle Alumna form submission
+      handleAddAlumna();
+    } else if (value === "2") {
+      // Handle Student Class Data form submission
+      handleAddBatch();
+      handleAddStrand();
+      handleAddStudentClassData();
+    } else {
+      // Handle other tabs as needed
+      // Add logic for other tabs if necessary
+    }
+  };
+
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
@@ -95,11 +155,17 @@ const Terminals = () => {
       }
     };
 
-    // Check if a user ID is selected
     if (typeof selectedUserId !== "undefined") {
       fetchUserData(selectedUserId);
     }
   }, [selectedUserId]);
+
+  const handleSelect = (event) => {
+    setUser((prevState) => ({
+      ...prevState,
+      suffix: event.target.value,
+    }));
+  };
 
   return (
     <div>
@@ -263,14 +329,8 @@ const Terminals = () => {
                         <input
                           type="text"
                           placeholder="Batch Year"
-                          required
-                          value={user.batch}
-                          onChange={(e) =>
-                            setUser((prevState) => ({
-                              ...prevState,
-                              batch: e.target.value,
-                            }))
-                          }
+                          value={year}
+                          onChange={(e) => setBatch(e.target.value)}
                         />
                       </div>
 
@@ -279,23 +339,16 @@ const Terminals = () => {
                         <input
                           type="text"
                           placeholder="Strand Name"
-                          required
-                          value={user.strand}
-                          onChange={(e) =>
-                            setUser((prevState) => ({
-                              ...prevState,
-                              strand: e.target.value,
-                            }))
-                          }
+                          value={strand}
+                          onChange={(e) => setStrand(e.target.value)}
                         />
                       </div>
-
+                      {/* 
                       <div className="add-item">
                         <label>Section</label>
                         <input
                           type="text"
                           placeholder="Section Number"
-                          required
                           value={user.section}
                           onChange={(e) =>
                             setUser((prevState) => ({
@@ -304,7 +357,7 @@ const Terminals = () => {
                             }))
                           }
                         />
-                      </div>
+                      </div> */}
 
                       <button id="browse-rec">Add to the Records</button>
                     </form>

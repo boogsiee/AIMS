@@ -62,7 +62,10 @@ const RecordLists = () => {
                   value={strand.strand_number.toString()}
                 >
                   <div>
-                    <Section strandId={strand.strand_number} />
+                    <Section
+                      strandId={strand.strand_number}
+                      strandName={strand.strand_name}
+                    />
                   </div>
                 </TabPanel>
               ))}

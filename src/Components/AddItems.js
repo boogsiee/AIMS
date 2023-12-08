@@ -10,7 +10,9 @@ const AddItems = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/users");
+      const response = await fetch("http://localhost:3000/users", {
+        method: "GET",
+      });
 
       if (!response.ok) {
         throw new Error(`Failed to fetch data. Status: ${response.status}`);
@@ -37,30 +39,27 @@ const AddItems = () => {
     }
   };
 
-  const handleUpdate = useCallback(
-    async (userId) => {
-      try {
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userId),
-        });
+  const handleUpdate = useCallback(async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userId),
+      });
 
-        if (response.ok) {
-          // Handle successful update, e.g., show a success message
-          console.log("User updated successfully!");
-        } else {
-          // Handle update failure, e.g., show an error message
-          console.error("Failed to update user");
-        }
-      } catch (error) {
-        console.error("Error updating user:", error);
+      if (response.ok) {
+        // Handle successful update, e.g., show a success message
+        console.log("User updated successfully!");
+      } else {
+        // Handle update failure, e.g., show an error message
+        console.error("Failed to update user");
       }
-    },
-    [selectedUserId]
-  );
+    } catch (error) {
+      console.error("Error updating user:", error.message);
+    }
+  }, []);
 
   const handleDelete = useCallback(async (userId) => {
     try {
@@ -75,7 +74,7 @@ const AddItems = () => {
       // Update the state by filtering out the deleted item
       setRows((prevRows) => prevRows.filter((row) => row.user_ID !== userId));
     } catch (error) {
-      console.error("Error deleting data:", error);
+      console.error("Error deleting data:", error.message);
     }
   }, []);
 
@@ -117,7 +116,7 @@ const AddItems = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [selectedUserId]);
 
   return (
     <div>

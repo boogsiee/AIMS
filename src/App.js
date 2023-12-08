@@ -1,5 +1,4 @@
 import React from "react";
-
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
@@ -20,13 +19,13 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/sign" component={SignUp} />
-          <Route path="/home" component={Home} />
+          <Route path="/terminal" component={Terminal} />
           <Route path="/records" component={Records} />
           <Route path="/profile" component={Profile} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/search" component={Search} />
-          <Route expath="/batch" component={RecordLists} />
-          <Route path="/terminal" component={Terminal} />
+          <Route path="/batch" component={RecordLists} />
+          <Route path="/home" component={Home} />
         </Switch>
       </div>
     </Router>

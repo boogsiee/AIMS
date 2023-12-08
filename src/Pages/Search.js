@@ -1,110 +1,181 @@
-import React, { useState, useEffect } from 'react';
-import Sidebar from '../Components/Sidebar';
+import React, { useState, useEffect } from "react";
+import Sidebar from "../Components/Sidebar";
+import { Link } from "react-router-dom";
+import Result from "../Components/Result";
 
 const Search = () => {
-    const [keyword, setKeyword] = useState('');
-    const [selectedBatch, setSelectedBatch] = useState(' ');
-    const [selectedSection, setSelectedSection] = useState(' ');
-    const [selectedGender, setSelectedGender] = useState(' ');
-    const [searchResults, setSearchResults] = useState([]);
+  const [batchData, setBatchData] = useState([]);
+  const [sectionData, setSectionData] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedBatch, setSelectedBatch] = useState("");
+  const [selectedSection, setSelectedSection] = useState("");
+  const [resultData, setResultData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const handleSearch = async () => {
-        try {
-            const response = await fetch('/api/search', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-            keyword,
-            batch: selectedBatch,
-            section: selectedSection,
-            gender: selectedGender,
-            }),
-        });
+  const handleSearch = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(
+        `http://localhost:3000/user-search?search=${searchKeyword}&batch_year=${selectedBatch}&section=${selectedSection}`
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(`Failed to fetch search results: ${errorData.error}`);
+        return;
+      }
+
+      const searchData = await response.json();
+      console.log("Fetched Search Results:", searchData);
+
+      setResultData(searchData);
+    } catch (error) {
+      console.error("Error during search:", error.message);
+      setError(`Error during search: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchBatchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/batch_years");
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Failed to fetch batch data:", errorData.error);
+          setError(`Failed to fetch batch data: ${errorData.error}`);
+          return;
+        }
 
         const data = await response.json();
-        setSearchResults(data.results);
-        } catch (error) {
-        console.error('Error during search:', error);
+        console.log("Fetched Batch Data:", data);
+
+        if (Array.isArray(data.batchYears)) {
+          setBatchData(data.batchYears);
+        } else {
+          console.error("Received data has unexpected format:", data);
+          setError("Received data has unexpected format");
         }
+      } catch (error) {
+        console.error("Error during batch data fetch:", error.message);
+        setError(`Error during batch data fetch: ${error.message}`);
+      }
     };
 
-    useEffect(() => {
-    handleSearch();
-    }, []);
+    const fetchSectionData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/sections");
 
-return (
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Failed to fetch section data:", errorData.error);
+          setError(`Failed to fetch section data: ${errorData.error}`);
+          return;
+        }
+
+        const data = await response.json();
+        console.log("Fetched Section Data:", data);
+
+        if (Array.isArray(data)) {
+          setSectionData(data);
+        } else {
+          console.error("Received data has unexpected format:", data);
+          setError("Received data has unexpected format");
+        }
+      } catch (error) {
+        console.error("Error during section data fetch:", error.message);
+        setError(`Error during section data fetch: ${error.message}`);
+      }
+    };
+
+    fetchBatchData();
+    fetchSectionData();
+  }, []);
+
+  return (
     <div>
-        <div className='home-main'>
-            <Sidebar />
-            <div className='search-main'>
-                <h2>Search</h2>
-                <div className='search-pane'>
-                    <input
-                        type='text'
-                        id='search'
-                        name='search'
-                        placeholder='Type any keyword'
-                        value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}
-                    />
-                    <div className='search-cat'>
-                        <select
-                            value={selectedBatch}
-                            onChange={(e) => setSelectedBatch(e.target.value)}
-                        >
-                            <option value=' '> Select Batch</option>
-                            <option value='2000'>2000</option>
-                            <option value='2001'>2001</option>
-                        </select>
+      <div className="home-main">
+        <Sidebar />
+        <div className="search-main">
+          <h2>Search</h2>
+          <div className="search-pane">
+            <input
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Type any keyword"
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+            />
+            <div className="search-cat">
+              <select
+                id="batchDropdown"
+                onChange={(e) => setSelectedBatch(e.target.value)}
+              >
+                <option value=" "> Select Batch</option>
+                {batchData.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
 
-                        <select
-                            value={selectedSection}
-                            onChange={(e) => setSelectedSection(e.target.value)}
-                        >
-                            <option value=' '> Select Section</option>
-                            <option value='Section1'>Section 1</option>
-                            <option value='Section2'>Section 2</option>
-                        </select>
+              <select
+                id="sectionDropdown"
+                onChange={(e) => setSelectedSection(e.target.value)}
+              >
+                <option value=" "> Select Section</option>
+                {sectionData.map((section) => (
+                  <option
+                    key={section.section_id}
+                    value={section.section_number}
+                  >
+                    {section.section_number}
+                  </option>
+                ))}
+              </select>
 
-                        <select
-                            value={selectedGender}
-                            onChange={(e) => setSelectedGender(e.target.value)}
-                        >
-                            <option value=' '> Select Gender</option>
-                            <option value='Male'>Male</option>
-                            <option value='Female'>Female</option>
-                        </select>
-
-                        <button onClick={handleSearch} className='search-btn'>Search</button>
-                    </div>
-                </div>
-                
-                <div className='result-box'>
-                    {searchResults.map((result) => (
-                <div key={result.id}>{result.name}</div>
-                    ))}
-                </div>
-        
-                <div className='suggest-box'>
-                    <h3>Browse</h3>
-                    {/* <div className='suggest-box-inner'>
-                        {suggestedChips.length === 0 ? (
-                            <h4>No suggestions available.</h4>
-                        ) : (
-                            suggestedChips.map((chip) => (
-                        <div key={chip} className='suggested-chip'>
-                            {chip}
-                        </div>
-                            ))
-                        )};
-                    </div> */}
-                </div>
+              <button className="search-btn" onClick={handleSearch}>
+                Search
+              </button>
             </div>
+          </div>
+
+          <div className="result-box">
+            {loading && <p>Loading...</p>}
+            {error && <p>{error}</p>}
+            {!loading && !error && <Result searchData={resultData} />}
+          </div>
+
+          <div className="suggest-box">
+            <h3>Browse</h3>
+            <div className="records-cont">
+              {batchData.length === 0 ? (
+                <h2>There is no batch existing.</h2>
+              ) : (
+                batchData.map((batch) => (
+                  <Link
+                    key={batch}
+                    to={`/batch?year=${batch}`}
+                    className="records-btn"
+                  >
+                    <div className="batch-card">
+                      <h3>Batch {batch}</h3>
+                    </div>
+                  </Link>
+                ))
+              )}
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-);
+  );
 };
 
 export default Search;
