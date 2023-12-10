@@ -1,7 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  const location = useLocation();
+  const isVerificationPage = location.pathname.includes("/verification");
+  if (isVerificationPage) {
+    return null;
+  }
+
   return (
     <>
       <div className="sidebar">

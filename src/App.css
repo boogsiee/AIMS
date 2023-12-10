@@ -38,7 +38,7 @@ form input:focus {
   outline:none;
 }
 /* Login */
-.user-main{
+.user-main {
   height: 425px;
   margin-top: 50px;
   background: rgba( 255, 255, 255, 0.35 );
@@ -66,7 +66,7 @@ form input:focus {
   justify-content: center;
   flex-direction: column;
 }
-input{
+.login-input{
   width:90%;
   height: 35px;
   padding-left:20px;
@@ -253,7 +253,7 @@ h1{
   padding-right: 20px;
   display:flex;
   flex-direction: column;
-  height: 410px;
+  height: 330px;
   overflow-y:scroll;
 }
 .story-card{
@@ -331,6 +331,14 @@ h1{
   padding-top: 10px;
   width:90%;
 }
+.search-main2{
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding:50px;
+}
 .search-main h2, .main-page h2{
   padding-left:15px;
   font-size: 36px;
@@ -341,6 +349,30 @@ h1{
   padding: 15px;
   width: 600px;
 
+}
+.search-veri{
+  align-self: center;
+  justify-self: center;
+  border-radius: 50px;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  height:50px;
+  width: 55%;
+  box-shadow: -10px 10px 153px -2px rgba(0,0,0,0.56);
+  -webkit-box-shadow: -10px 10px 153px -2px rgba(0,0,0,0.56);
+  -moz-box-shadow: -10px 10px 153px -2px rgba(0,0,0,0.56);
+}
+.search-btn2{
+  align-self: center;
+  justify-self: center;
+  width: 30%;
+  padding: 10px;
+  cursor:pointer;
+  border: none;
+  border-radius: 8px;
+  background: #0A2127;
+  color:aliceblue;
+  height:45px;
 }
 #search{
   border-radius: 35px;
@@ -386,13 +418,21 @@ h1{
   color:aliceblue;
   height:45px;
 }
-batch-card{
+#delbtn{
+  padding:3px;
+  width:80px;
+  border-radius: 12px;
+  border:none;
+  background-color: crimson;
+  color: whitesmoke;
+}
+.batch-card{
   font-size: 32px;
 }
 .result-box{
   width:90%;
   height: 400px;
-  overflow-y: hidden;
+  overflow-y:hidden;
   cursor: grab;
 }
 .suggest-box{
@@ -400,7 +440,7 @@ batch-card{
 }
 .suggest-box-inner{
   width:90%;
-  overflow-y: hidden;
+  overflow-y: scroll;
   cursor: grab;
 }
 .records-main{
@@ -415,23 +455,47 @@ batch-card{
   display:flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  overflow-y: scroll;
   justify-content: start;
   width: 95%;
-  height:30vh;
+  height:20vh;
+  padding: 10px;
+}
+.records-cont-main{
+  display:flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  justify-content: start;
+  width: 95%;
+  height:80vh;
   padding: 10px;
 }
 .records-cont div{
-  width: 200px;
+  width: 130px;
   text-align: center;
   border-radius:50px;
-  height:35px;
+  height:30px;
   padding:0%;
   border: 3px solid rgb(154, 154, 154);
   margin-right: 20px;
   color:#0A2127;
   cursor: pointer;
 }
-.records-cont div:hover, #batch-chip:hover{
+.records-cont-main div{
+  width: 140px;
+  display: flex;
+  justify-content:space-around;
+  text-align: center;
+  padding:10px;
+  border-radius:20px;
+  height:80px;
+  border: 3px solid rgb(154, 154, 154);
+  margin-right: 20px;
+  color:#0A2127;
+  cursor: pointer;
+}
+.records-cont div:hover, .records-cont-main div:hover, #batch-chip:hover{
   background:#0A2127;
   color:aliceblue;
   border:none;
@@ -440,8 +504,26 @@ batch-card{
   -moz-box-shadow: -10px 10px 153px -2px rgba(0,0,0,0.56);
 }
 /* Profile */
+.main-edit{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
 .profile-main{
   padding:10px;
+}
+#button-edit{
+  width:300px;
+  height: 60px;
+  border: none;
+  border-radius:15px;
+  color: white;
+  font-size: 18px;
+  cursor:pointer;
+  background:#0A2127;
 }
 .profile{
   display: flex;
@@ -464,7 +546,7 @@ batch-card{
 }
 #batch-chip{
   background: #D9D9D9;
-  width: 100px;
+  width: 180px;
   padding:5px;
   text-align: center;
   border-radius: 15px;
@@ -476,8 +558,50 @@ batch-card{
 }
 .profile-desc{
   margin-bottom: 15px;
+  display: flex;
 }
-.profile-chip{
+.verification{
+  display:flex;
+  justify-content: center;
+  height:50px;
+}
+.verification > h4{
+  align-self: center;
+}
+.profile-desc > div{
+  width: 300px;
+}
+#edit{
+  border: none;
+  background:none;
+  cursor: pointer;
+}
+#editinput{
+  width: 50%;
+}
+.edit-board{
+  padding:50px;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  flex-direction:row;
+  width: 900px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background: rgba( 255, 255, 255, 0.35 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 16px );
+  -webkit-backdrop-filter: blur( 16px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+.edit-info{
+  justify-content:flex-start;
+  text-align:left;
+  padding: 20px;
+  width:50%;
+}
+profile-chip{
   width:80%;
   display:flex;
   flex-direction: row;
@@ -495,7 +619,7 @@ batch-card{
 .prof-story-box{
   display: flex;
   flex-direction: row;
-  height: 250px;
+  height: 90px;
 }
 .story-tit{
   display: flex;
@@ -505,7 +629,7 @@ batch-card{
 }
 .main-page-terminal{
   padding:0px;
-  width: 100%;
+  width: 95%;
   display:flex;
   flex-direction: column;
 }

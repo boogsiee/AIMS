@@ -20,7 +20,9 @@ const Records = () => {
         console.log("Fetched Batch Data:", data);
 
         if (Array.isArray(data.batchYears)) {
-          setBatchData(data.batchYears);
+          // Sort the batch years in descending order
+          const sortedBatchYears = data.batchYears.sort((a, b) => b - a);
+          setBatchData(sortedBatchYears);
         } else {
           console.error("Received data has unexpected format:", data);
         }
@@ -32,14 +34,13 @@ const Records = () => {
     fetchBatchData();
   }, []);
 
-  // The map function should be inside the return statement
   return (
     <div>
       <div className="home-main">
         <Sidebar />
         <div className="records-main">
           <h1>Records</h1>
-          <div className="records-cont">
+          <div className="records-cont-main">
             {batchData.length === 0 ? (
               <h2>There is no batch existing.</h2>
             ) : (
@@ -48,7 +49,7 @@ const Records = () => {
 
                 return (
                   <Link
-                    key={batch.batch_number}
+                    key={batch}
                     to={`/batch?year=${batch}`}
                     className="records-btn"
                   >

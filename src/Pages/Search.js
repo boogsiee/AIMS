@@ -106,7 +106,7 @@ const Search = () => {
           <div className="search-pane">
             <input
               type="text"
-              id="search"
+              className="search-veri"
               name="search"
               placeholder="Type any keyword"
               value={searchKeyword}
@@ -116,6 +116,7 @@ const Search = () => {
               <select
                 id="batchDropdown"
                 onChange={(e) => setSelectedBatch(e.target.value)}
+                value={selectedBatch !== null ? selectedBatch : " "}
               >
                 <option value=" "> Select Batch</option>
                 {batchData.map((year) => (
@@ -128,6 +129,7 @@ const Search = () => {
               <select
                 id="sectionDropdown"
                 onChange={(e) => setSelectedSection(e.target.value)}
+                value={selectedSection !== null ? selectedSection : " "}
               >
                 <option value=" "> Select Section</option>
                 {sectionData.map((section) => (
@@ -158,17 +160,19 @@ const Search = () => {
               {batchData.length === 0 ? (
                 <h2>There is no batch existing.</h2>
               ) : (
-                batchData.map((batch) => (
-                  <Link
-                    key={batch}
-                    to={`/batch?year=${batch}`}
-                    className="records-btn"
-                  >
-                    <div className="batch-card">
-                      <h3>Batch {batch}</h3>
-                    </div>
-                  </Link>
-                ))
+                batchData
+                  .sort((a, b) => b - a) // Sort batch years in descending order
+                  .map((batch) => (
+                    <Link
+                      key={batch}
+                      to={`/batch?year=${batch}`}
+                      className="records-btn"
+                    >
+                      <div className="batch-card">
+                        <h3>Batch {batch}</h3>
+                      </div>
+                    </Link>
+                  ))
               )}
             </div>
           </div>

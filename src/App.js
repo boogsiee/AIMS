@@ -11,6 +11,8 @@ import Dashboard from "./Pages/Dashboard";
 import Search from "./Pages/Search";
 import RecordLists from "./Pages/RecordLists";
 import Terminal from "./Pages/Terminals";
+import EditProfile from "./Pages/EditProfile";
+import Verification from "./Pages/Verification";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/search" component={Search} />
           <Route path="/batch" component={RecordLists} />
           <Route path="/home" component={Home} />
+          <Route path="/edit" component={EditProfile} />
+          <Route path="/verification" component={Verification} />
         </Switch>
       </div>
     </Router>

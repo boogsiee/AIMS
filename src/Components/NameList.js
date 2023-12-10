@@ -37,23 +37,17 @@ const NameList = ({ strand_name, section_number, batch_year }) => {
   if (error) {
     return <div>{error}</div>;
   }
+  const sortedUsers = [...users].sort((a, b) =>
+    a.user_fname.localeCompare(b.user_fname)
+  );
 
   return (
     <div>
-      {users
-        .filter((user) => {
-          console.log("aaa", user, strand_name);
-          return user.strand_name === strand_name;
-        })
-        .map((user) => (
-          <Link
-            key={user.user_ID}
-            to={`/profile/${user.user_ID}`}
-            type="button"
-          >
-            <h4>{`${user.user_fname} ${user.user_lname}`}</h4>
-          </Link>
-        ))}
+      {sortedUsers.map((user) => (
+        <Link key={user.user_ID} to={`/profile/${user.user_ID}`} type="button">
+          <h4>{`${user.user_fname} ${user.user_lname}`}</h4>
+        </Link>
+      ))}
     </div>
   );
 };

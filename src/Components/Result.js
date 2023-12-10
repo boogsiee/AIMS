@@ -12,7 +12,12 @@ const Result = ({ searchData }) => {
           {searchData.map((user) => (
             <div key={user.user_ID}>
               <Link to={`/profile/${user.user_ID}`}>
-                {user.user_fname} {user.user_lname} {user.username}
+                <h4>
+                  {user.user_fname} {user.user_lname}
+                </h4>
+                <p>
+                  {user.batch_year} - {user.strand_name}
+                </p>
               </Link>
             </div>
           ))}

@@ -39,28 +39,6 @@ const AddItems = () => {
     }
   };
 
-  const handleUpdate = useCallback(async (userId) => {
-    try {
-      const response = await fetch(`http://localhost:3000/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userId),
-      });
-
-      if (response.ok) {
-        // Handle successful update, e.g., show a success message
-        console.log("User updated successfully!");
-      } else {
-        // Handle update failure, e.g., show an error message
-        console.error("Failed to update user");
-      }
-    } catch (error) {
-      console.error("Error updating user:", error.message);
-    }
-  }, []);
-
   const handleDelete = useCallback(async (userId) => {
     try {
       const response = await fetch(`http://localhost:3000/users/${userId}`, {
@@ -99,19 +77,8 @@ const AddItems = () => {
           />
         ),
       },
-      {
-        field: "updatebtn",
-        headerName: "Update",
-        width: 100,
-        renderCell: (params) => (
-          <UpdateButton
-            id={params.row.id}
-            onUpdate={() => handleUpdate(params.row)}
-          />
-        ),
-      },
     ],
-    [handleDelete, handleUpdate]
+    [handleDelete]
   );
 
   useEffect(() => {
@@ -121,7 +88,7 @@ const AddItems = () => {
   return (
     <div>
       <h2>Recently Added Alumni</h2> <br />
-      <div style={{ height: 350, width: "100%" }}>
+      <div style={{ height: 500, width: "100%" }}>
         <DataGrid rows={rows} columns={columns} getRowId={(row) => row.id} />
       </div>
       <br />
@@ -129,20 +96,16 @@ const AddItems = () => {
   );
 };
 
-const UpdateButton = React.memo(function ({ id, onUpdate }) {
-  const handleUpdate = () => {
-    onUpdate(id);
-  };
-
-  return <button onClick={handleUpdate}>Update</button>;
-});
-
 const DeleteButton = React.memo(function ({ id, onDelete }) {
   const handleDelete = () => {
     onDelete(id);
   };
 
-  return <button onClick={handleDelete}>Delete</button>;
+  return (
+    <button id="delbtn" onClick={handleDelete}>
+      Delete
+    </button>
+  );
 });
 
 export default AddItems;
