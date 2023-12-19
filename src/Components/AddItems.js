@@ -19,8 +19,11 @@ const AddItems = () => {
       }
 
       const data = await response.json();
+      const sortedData = data.sort(
+        (a, b) => new Date(b.reg_date) - new Date(a.reg_date)
+      );
 
-      const rowsWithIds = data.map((row, index) => ({
+      const rowsWithIds = sortedData.map((row, index) => ({
         ...row,
         id: index + 1,
         firstName: row.user_fname,

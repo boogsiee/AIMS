@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../Components/Sidebar";
-import Social from "../Components/Stories";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import Stories from "../Components/Stories"; // Import the Stories component
+import { Link, useLocation, useHistory, useParams } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
 
 const Profile = ({ fromVerification }) => {
   const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(false); // Added loading state
   const path = useLocation();
   const selectedUserId = path.pathname.split("/")[2];
   const history = useHistory();
+
+  const { user_ID } = useParams();
 
   const getInitial = (name) => {
     if (!name || typeof name !== "string") {
@@ -21,6 +25,8 @@ const Profile = ({ fromVerification }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        setLoading(true);
+
         const response = await fetch(
           `http://localhost:3000/users/${selectedUserId}`,
           {
@@ -35,6 +41,8 @@ const Profile = ({ fromVerification }) => {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -63,11 +71,33 @@ const Profile = ({ fromVerification }) => {
     } else {
       return (
         <>
-          <h4 id="verilabel">Not Yet Verified</h4> &nbsp;
-          <button className="search-btn2">Verify Now</button>
+          <div className="NV">
+            <h4 id="verilabel">Not Yet Verified</h4>
+            <Tooltip title="Verify Your Account" placement="right">
+              <Link to="/sign" className="verify-btn">
+                Verify Now
+              </Link>
+            </Tooltip>
+          </div>
         </>
       );
     }
+  };
+
+  const getInitials = (firstName, lastName) => {
+    if (
+      !firstName ||
+      !lastName ||
+      typeof firstName !== "string" ||
+      typeof lastName !== "string"
+    ) {
+      return "";
+    }
+
+    const firstInitial = firstName.charAt(0);
+    const lastInitial = lastName.charAt(0);
+
+    return `${firstInitial}${lastInitial}`;
   };
 
   return (
@@ -79,7 +109,9 @@ const Profile = ({ fromVerification }) => {
           <div className="profile">
             <div className="profile-box">
               <div className="pic-holder">
-                <img src="url(profile.png)" alt="profile" id="profile-pic" />
+                <h1>
+                  {getInitials(userData?.user_fname, userData?.user_lname)}
+                </h1>
               </div>
               <br />
               <div className="verification">
@@ -117,45 +149,46 @@ const Profile = ({ fromVerification }) => {
                   </p>
                 </div>
                 <div className="pdesc3">
-                  <button id="edit" type="button" onClick={handleEditClick}>
-                    <img
-                      width="40"
-                      height="40"
-                      src="https://img.icons8.com/material-rounded/48/edit--v1.png"
-                      alt="edit--v1"
-                    />
-                  </button>
+                  <Tooltip title="Edit Your Profile" placement="right">
+                    <button id="edit" type="button" onClick={handleEditClick}>
+                      <img
+                        width="40"
+                        height="40"
+                        src="https://img.icons8.com/material-rounded/48/edit--v1.png"
+                        alt="edit--v1"
+                      />
+                    </button>
+                  </Tooltip>
                 </div>
-
-                {/* <h2>Background Achievements</h2> */}
-                {/* <div className="profile-chip">
-                  <div>Salutatorian</div>
-                  <div>Ginoong Lakan 2021</div>
-                  <div>MVP - Basketball</div>
-                </div> */}
               </div>
               <br />
               <hr />
               <br />
               <div className="story-tit">
                 <h2>Your Stories</h2>
-                <Link to="/profile">
-                  <img
-                    width="40"
-                    height="40"
-                    src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/48/external-Write-business-tanah-basah-basic-outline-tanah-basah.png"
-                    alt="external-Write-business-tanah-basah-basic-outline-tanah-basah"
-                  />
-                </Link>
+                <Tooltip title="Write a Story" placement="right">
+                  <Link to={`/profile/${selectedUserId}`}>
+                    <img
+                      width="40"
+                      height="40"
+                      src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/48/external-Write-business-tanah-basah-basic-outline-tanah-basah.png"
+                      alt="external-Write-business-tanah-basah-basic-outline-tanah-basah"
+                    />
+                  </Link>
+                </Tooltip>
               </div>
               <div className="prof-story-box">
-                <Social />
+                {loading ? (
+                  <p>Loading stories...</p>
+                ) : (
+                  <Stories userId={user_ID} />
+                )}
               </div>
+              <div></div>
             </div>
           </div>
         </div>
       </div>
-      {/* <Profile fromVerification={false} /> */}
     </div>
   );
 };

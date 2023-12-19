@@ -51,31 +51,31 @@ const AddClass = () => {
 
   return (
     <div>
-      <div className="add-item">
+      <div className="add-item2">
         <label>Batch</label>
         <input
-          className="login-input"
+          className="login-input2"
           type="text"
           placeholder="add new batch year"
           value={batch}
           onChange={(e) => setBatch(e.target.value)}
         />
         <Button variant="contained" onClick={handleAddBatch} id="browse-rec">
-          Add Strand
+          Add New Batch Year
         </Button>
       </div>
 
-      <div className="add-item">
+      <div className="add-item2">
         <label>Strand</label>
         <input
-          className="login-input"
+          className="login-input2"
           type="text"
           placeholder="add new strand"
           value={strand}
           onChange={(e) => setStrand(e.target.value)}
         />
         <Button variant="contained" onClick={handleAddStrand} id="browse-rec">
-          Add Strand
+          Add New Strand
         </Button>
       </div>
     </div>

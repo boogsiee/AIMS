@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "../Components/Sidebar";
-import Social from "../Components/Stories";
+// import Social from "../Components/Stories";
 import Announcements from "../Components/Announcements";
 import { Link } from "react-router-dom";
 
@@ -35,7 +35,7 @@ const Home = () => {
             <div class="social-sect">
               <h3>Succesful Stories</h3>
               <br />
-              <Social />
+              {/* <Social /> */}
             </div>
             <div class="right-pane">
               <h3>Announcements and Events</h3>

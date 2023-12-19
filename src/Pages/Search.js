@@ -119,11 +119,13 @@ const Search = () => {
                 value={selectedBatch !== null ? selectedBatch : " "}
               >
                 <option value=" "> Select Batch</option>
-                {batchData.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
+                {batchData
+                  .sort((a, b) => b - a) // Sort in ascending order
+                  .map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
               </select>
 
               <select
@@ -160,8 +162,9 @@ const Search = () => {
               {batchData.length === 0 ? (
                 <h2>There is no batch existing.</h2>
               ) : (
-                batchData
-                  .sort((a, b) => b - a) // Sort batch years in descending order
+                // Use a proper shuffling algorithm to randomize the order
+                shuffleArray(batchData)
+                  .slice(0, 8)
                   .map((batch) => (
                     <Link
                       key={batch}
@@ -181,5 +184,12 @@ const Search = () => {
     </div>
   );
 };
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
 export default Search;

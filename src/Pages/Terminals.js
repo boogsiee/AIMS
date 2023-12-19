@@ -168,7 +168,15 @@ const Terminals = () => {
                             onChange={(e) =>
                               setUser((prevState) => ({
                                 ...prevState,
-                                firstName: e.target.value,
+                                firstName: e.target.value
+                                  .toLowerCase()
+                                  .split(" ")
+                                  .map(
+                                    (word) =>
+                                      word.charAt(0).toUpperCase() +
+                                      word.slice(1)
+                                  )
+                                  .join(" "),
                               }))
                             }
                           />
@@ -185,7 +193,15 @@ const Terminals = () => {
                             onChange={(e) =>
                               setUser((prevState) => ({
                                 ...prevState,
-                                lastName: e.target.value,
+                                lastName: e.target.value
+                                  .toLowerCase()
+                                  .split(" ")
+                                  .map(
+                                    (word) =>
+                                      word.charAt(0).toUpperCase() +
+                                      word.slice(1)
+                                  )
+                                  .join(" "),
                               }))
                             }
                           />
@@ -202,7 +218,15 @@ const Terminals = () => {
                             onChange={(e) =>
                               setUser((prevState) => ({
                                 ...prevState,
-                                midName: e.target.value,
+                                midName: e.target.value
+                                  .toLowerCase()
+                                  .split(" ")
+                                  .map(
+                                    (word) =>
+                                      word.charAt(0).toUpperCase() +
+                                      word.slice(1)
+                                  )
+                                  .join(" "),
                               }))
                             }
                           />
@@ -304,8 +328,8 @@ const Terminals = () => {
                                   Old Curriculum
                                 </MenuItem>
                                 <MenuItem value={"GAS"}>GAS</MenuItem>
-                                <MenuItem value={"STRAND"}>STRAND</MenuItem>
-                                <MenuItem value={"HUMS"}>HUMS</MenuItem>
+                                <MenuItem value={"STEM"}>STEM</MenuItem>
+                                <MenuItem value={"TVL"}>TVL</MenuItem>
                                 <MenuItem value={"COOKERY"}>COOKERY</MenuItem>
                               </Select>
                             </Box>

@@ -1,82 +1,95 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const Stories = () => {
-return (
-    <div class="story-cont">
-        <div class="story-card">
-            <div class="story-identity">
-                <div class="profile-pic">
-                    <img src="profile.png" alt="pic" />
-                </div>
-                <div>
-                    <h4>Juan Dela Cruz</h4>
-                    <p>Batch 1999</p>
-                </div>
-            </div>
-            <div class="main-story">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua. Odio euismod lacinia at
-                quis risus sed. Nulla aliquet enim tortor at. Massa tempor nec feugiat nisl
-                pretium. Fermentum dui faucibus in ornare. Viverra vitae congue eu consequat 
-                ac felis donec et. Vitae proin sagittis nisl rhoncus. Posuere lorem ipsum 
-                dolor sit amet consectetur adipiscing elit. Lorem dolor sed viverra ipsum nunc 
-                aliquet bibendum. Integer quis auctor elit sed vulputate mi sit amet mauris. 
-                Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque. Sit amet 
-                purus gravida quis blandit turpis cursus in hac. Interdum velit laoreet id 
-                donec. Magnis dis parturient montes nascetur ridiculus mus mauris vitae.</p> 
-            </div>
-        </div>
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true); // Updated loading state
+  const { userId } = useParams();
 
-        <div class="story-card">
-            <div class="story-identity">
-                <div class="profile-pic">
-                    <img src="profile.png" alt="pic" />
-                </div>
-                <div>
-                    <h4>Juan Dela Cruz</h4>
-                    <p>Batch 1999</p>
-                </div>
-            </div>
-            <div class="main-story">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua. Odio euismod lacinia at
-                quis risus sed. Nulla aliquet enim tortor at. Massa tempor nec feugiat nisl
-                pretium. Fermentum dui faucibus in ornare. Viverra vitae congue eu consequat 
-                ac felis donec et. Vitae proin sagittis nisl rhoncus. Posuere lorem ipsum 
-                dolor sit amet consectetur adipiscing elit. Lorem dolor sed viverra ipsum nunc 
-                aliquet bibendum. Integer quis auctor elit sed vulputate mi sit amet mauris. 
-                Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque. Sit amet 
-                purus gravida quis blandit turpis cursus in hac. Interdum velit laoreet id 
-                donec. Magnis dis parturient montes nascetur ridiculus mus mauris vitae.</p> 
-            </div>
-        </div>
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
 
-        <div class="story-card">
-            <div class="story-identity">
-                <div class="profile-pic">
-                    <img src="profile.png" alt="pic" />
-                </div>
-                <div>
-                    <h4>Juan Dela Cruz</h4>
-                    <p>Batch 1999</p>
-                </div>
-            </div>
-            <div class="main-story">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-                tempor incididunt ut labore et dolore magna aliqua. Odio euismod lacinia at
-                quis risus sed. Nulla aliquet enim tortor at. Massa tempor nec feugiat nisl
-                pretium. Fermentum dui faucibus in ornare. Viverra vitae congue eu consequat 
-                ac felis donec et. Vitae proin sagittis nisl rhoncus. Posuere lorem ipsum 
-                dolor sit amet consectetur adipiscing elit. Lorem dolor sed viverra ipsum nunc 
-                aliquet bibendum. Integer quis auctor elit sed vulputate mi sit amet mauris. 
-                Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida neque. Sit amet 
-                purus gravida quis blandit turpis cursus in hac. Interdum velit laoreet id 
-                donec. Magnis dis parturient montes nascetur ridiculus mus mauris vitae.</p> 
-            </div>
-        </div>
+        const response = await fetch(`/posts/user/${userId}`);
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Fetched posts:", data);
+
+        setPosts(data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        // Handle error as needed
+      } finally {
+        setLoading(false); // Set loading to false after fetching
+      }
+    };
+
+    fetchPosts();
+  }, [userId]);
+
+  return (
+    <div className="story-cont">
+      <TextField
+        label="Write some words to publicize"
+        multiline
+        rows={1}
+        // value={comment}
+        // onChange={handleCommentChange}
+        sx={{
+          width: "100%",
+          color: "black",
+          "& .MuiInputBase-input": {
+            color: "black",
+            "&:focus": {
+              color: "black", // Set the text color when focused
+            },
+          },
+        }}
+      />
+      <Button
+        // onClick={handleSubmit}
+        sx={{
+          backgroundColor: "black",
+          color: "white",
+          marginTop: 2,
+          width: "100%",
+        }}
+      >
+        Submit
+      </Button>
+
+      {loading ? (
+        <p>Loading stories...</p>
+      ) : (
+        posts.map((post) => (
+          <div key={post.post_number} className="story-card">
+            {/* Your existing code for displaying post data */}
+            <div className="story-identity">
+              <div className="profile-pic">
+                <img src="profile.png" alt="pic" />
+              </div>
+              <div>
+                <h4>
+                  {post.user_fname} {post.user_lname}
+                </h4>
+                <p>Batch {post.batch_year}</p>
+              </div>
+            </div>
+            <div className="main-story">
+              <p>{post.post_content}</p>
+            </div>
+          </div>
+        ))
+      )}
     </div>
-)
-}
+  );
+};
 
-export default Stories
+export default Stories;
