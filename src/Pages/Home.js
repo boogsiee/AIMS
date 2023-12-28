@@ -1,8 +1,8 @@
 import React from "react";
 import Sidebar from "../Components/Sidebar";
-// import Social from "../Components/Stories";
 import Announcements from "../Components/Announcements";
 import { Link } from "react-router-dom";
+import Posts from "./Posts";
 
 const Home = () => {
   return (
@@ -13,11 +13,10 @@ const Home = () => {
           <div class="personal">
             <div class="greetings">
               <div>
-                <h1> Hello, User</h1>
-                <p>
-                  Welcome to Numancia School of Fisheries Alumni Portal. Your
-                  place to stay connected to your Alma Mater! Let us know how we
-                  may help you.{" "}
+                <h1> Welcome to NNSF AIMS!</h1>
+                <p id="catch">
+                  Your place to stay connected to your Alma Mater! Let us know
+                  how we may help you.
                 </p>
               </div>
             </div>
@@ -35,7 +34,7 @@ const Home = () => {
             <div class="social-sect">
               <h3>Succesful Stories</h3>
               <br />
-              {/* <Social /> */}
+              <Posts />
             </div>
             <div class="right-pane">
               <h3>Announcements and Events</h3>

@@ -1,41 +1,28 @@
-import React from 'react'
+import React from "react";
 
 const Announcements = () => {
-return (
+  return (
     <div class="ann-main">
-        <div class="ann-card">
-            <h4>The title of the announcement</h4>
-            <p>In nibh mauris cursus mattis molestie a iaculis.
-                Eget nullam non nisi est sit amet facilisis.
-                Massa tincidunt nunc pulvinar sapien et. Sed sed
-                risus pretium quam vulputate. Diam phasellus
-                vestibulum lorem sed risus ultricies tristique
-                nulla aliquet. Scelerisque fermentum dui faucibus
-                in. Orci sagittis eu volutpat odio facilisis.
-                Metus aliquam eleifend mi in.</p>
-        </div>
+      <div class="ann-card">
+        <p>
+          Join us for an evening of nostalgia, reconnecting with old friends,
+          and networking with fellow alumni who have gone on to achieve
+          remarkable success in their respective fields. This event is an
+          excellent opportunity to reminisce about the good times spent at NNSF
+          and to hear about the exciting journeys our alumni have embarked upon
+          since graduation.
+        </p>
+      </div>
 
-        <div class="ann-card">
-            <h4>The title of the announcement</h4>
-            <p>In nibh mauris cursus mattis molestie a iaculis.
-                Eget nullam non nisi est sit amet facilisis.
-                Massa tincidunt nunc pulvinar sapien et. Sed sed
-                risus pretium quam vulputate. </p>
-        </div>
-
-        <div class="ann-card">
-            <h4>The title of the announcement</h4>
-            <p>In nibh mauris cursus mattis molestie a iaculis.
-                Eget nullam non nisi est sit amet facilisis.
-                Massa tincidunt nunc pulvinar sapien et. Sed sed
-                risus pretium quam vulputate. Diam phasellus
-                vestibulum lorem sed risus ultricies tristique
-                nulla aliquet. Scelerisque fermentum dui faucibus
-                in. Orci sagittis eu volutpat odio facilisis.
-                Metus aliquam eleifend mi in.</p>
-        </div>
+      <div class="ann-card">
+        <p>
+          Engage in meaningful conversations with fellow alumni, share your
+          experiences, and explore potential collaborations. This is a chance to
+          expand your professional network and reconnect with familiar faces.
+        </p>
+      </div>
     </div>
-)
-}
+  );
+};
 
-export default Announcements
+export default Announcements;

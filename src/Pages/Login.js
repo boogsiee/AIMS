@@ -1,55 +1,52 @@
 import React from "react";
 import ABackground from "../Components/ABackground";
-
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [error, setError] = useState(null);
+  // const history = useHistory();
 
   // const handleLogin = async () => {
-  //   // Perform login logic here (e.g., send a request to your server)
-
   //   try {
-  //     const response = await fetch('/login', {
-  //       method: 'POST',
+  //     const response = await fetch("http://localhost:3000/login", {
+  //       method: "POST",
   //       headers: {
-  //         'Content-Type': 'application/json',
+  //         "Content-Type": "application/json",
   //       },
-  //       body: JSON.stringify({
-  //         username,
-  //         password,
-  //       }),
+  //       body: JSON.stringify({ username: username, pword: password }),
   //     });
 
-  //     const data = await response.json();
-
   //     if (response.ok) {
-  //       console.log(data.message); // Successful login
-  //       // Redirect or perform any action upon successful login
+  //       // Redirect to home page on successful login
+  //       history.push("/home");
   //     } else {
-  //       console.error(data.error); // Failed login
+  //       const responseBody = await response.json(); // Parse response body
+  //       console.error("Login error:", responseBody.error);
+  //       setError("Invalid credentials");
   //     }
   //   } catch (error) {
-  //     console.error('Error during login:', error);
+  //     console.error("Login error:", error.message);
+  //     setError("Invalid credentials");
   //   }
   // };
 
   return (
     <div>
       <div>
-        <div class="main">
-          <div class="user-main">
+        <div className="main">
+          <div className="user-main">
             <div id="title-left">
-              <h2 class="prompt-title">Welcome Home!</h2>
+              <h2 className="prompt-title">Welcome Home!</h2>
               <p id="desc">
-                Log in to your account and share your stories to the people of
+                Log in to your account and share your stories with the people of
                 your Alma Mater.
               </p>
             </div>{" "}
             <br />
-            <form action="/" method="POST">
-              <label for="username">Username</label> <br />
+            <form>
+              <label htmlFor="username">Username</label> <br />
               <input
                 className="login-input"
                 type="text"
@@ -57,11 +54,11 @@ const Login = () => {
                 name="username"
                 placeholder="Enter your username"
                 // value={username}
-                // onChange={(e) => setUsername(e.target.value)}
-                required
+                // onChange=""
+                // required
               />
               <br /> <br />
-              <label for="password">Password</label> <br />
+              <label htmlFor="password">Password</label> <br />
               <input
                 className="login-input"
                 type="password"
@@ -69,18 +66,12 @@ const Login = () => {
                 name="password"
                 placeholder="Enter your password"
                 // value={password}
-                // onChange={(e) => setPassword(e.target.value)}
-                required
+                // onChange=" "
+                // required
               />
               <br /> <br />
-              <Link type="button" to="/home">
-                <button
-                  type="button"
-                  // onClick={handleLogin}
-                  className="user-btn"
-                >
-                  LOG IN
-                </button>
+              <Link to="/home" type="button" className="user-btn">
+                LOGIN
               </Link>
               <br /> <br />
             </form>

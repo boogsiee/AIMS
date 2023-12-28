@@ -59,7 +59,7 @@ const Verification = () => {
             />
             <br />
 
-            <button className="search-btn2" onClick={handleSearch}>
+            <button className="search-btn3" onClick={handleSearch}>
               Search
             </button>
             <br />

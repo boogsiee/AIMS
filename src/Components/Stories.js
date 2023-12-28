@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 
 const Stories = () => {
   const [posts, setPosts] = useState([]);
@@ -36,35 +34,6 @@ const Stories = () => {
 
   return (
     <div className="story-cont">
-      <TextField
-        label="Write some words to publicize"
-        multiline
-        rows={1}
-        // value={comment}
-        // onChange={handleCommentChange}
-        sx={{
-          width: "100%",
-          color: "black",
-          "& .MuiInputBase-input": {
-            color: "black",
-            "&:focus": {
-              color: "black", // Set the text color when focused
-            },
-          },
-        }}
-      />
-      <Button
-        // onClick={handleSubmit}
-        sx={{
-          backgroundColor: "black",
-          color: "white",
-          marginTop: 2,
-          width: "100%",
-        }}
-      >
-        Submit
-      </Button>
-
       {loading ? (
         <p>Loading stories...</p>
       ) : (

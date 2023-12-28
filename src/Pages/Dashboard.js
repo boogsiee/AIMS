@@ -39,6 +39,7 @@ const Dashboard = () => {
           );
         }
 
+        // Update state with the totalVerifiedUsers
         setTotalVerifiedUsers(verifiedData.totalVerifiedUsers);
 
         // Fetch strands
@@ -112,9 +113,9 @@ const Dashboard = () => {
                     key={strand.strand_number}
                   >
                     <h4>
-                      {strand.strand_name}:{" "}
+                      {strand.strand_name}:
                       <span className="strand-counts">
-                        {strandCounts[strand.strand_name] || 0}
+                        {strandCounts[strand.strand_name]}
                       </span>
                     </h4>
                   </div>
@@ -125,6 +126,7 @@ const Dashboard = () => {
               <div>
                 <h2>Verification Requests</h2>
                 <div>
+                  {/* Use the Request component */}
                   <Request />
                 </div>
               </div>

@@ -19,6 +19,8 @@ const AddClass = () => {
 
       if (response.ok) {
         console.log("Batch Added:", data);
+        // Reload the page after successful batch addition
+        window.location.reload();
       } else {
         console.error("Error adding Batch:", data.error);
       }
@@ -41,6 +43,8 @@ const AddClass = () => {
 
       if (response.ok) {
         console.log("Strand Added:", data);
+        // Reload the page after successful strand addition
+        window.location.reload();
       } else {
         console.error("Error adding Strand:", data.error);
       }

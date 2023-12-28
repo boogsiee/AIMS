@@ -62,6 +62,9 @@ const Terminals = () => {
         );
 
         console.log("Submit successful!"); // Add this line for console log
+
+        // Reload the page after a successful form submission
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -324,7 +327,7 @@ const Terminals = () => {
                                 <MenuItem value="default" disabled>
                                   Select Strand
                                 </MenuItem>
-                                <MenuItem value={"Old Curriculum"}>
+                                <MenuItem value={"OLD CURRICULUM"}>
                                   Old Curriculum
                                 </MenuItem>
                                 <MenuItem value={"GAS"}>GAS</MenuItem>

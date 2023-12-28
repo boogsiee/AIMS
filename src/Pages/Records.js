@@ -21,7 +21,7 @@ const Records = () => {
 
         if (Array.isArray(data.batchYears)) {
           // Sort the batch years in descending order
-          const sortedBatchYears = data.batchYears.sort((a, b) => b - a);
+          const sortedBatchYears = data.batchYears.sort((a, b) => a - b);
           setBatchData(sortedBatchYears);
         } else {
           console.error("Received data has unexpected format:", data);
@@ -45,8 +45,6 @@ const Records = () => {
               <h2>There is no batch existing.</h2>
             ) : (
               batchData.map((batch) => {
-                console.log("Batch Object:", batch);
-
                 return (
                   <Link
                     key={batch}

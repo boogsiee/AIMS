@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import ABackground from "../Components/ABackground";
 
 const EditProfile = () => {
   const path = useLocation();
   const selectedUserId = path.pathname.split("/")[2];
-  // const history = useHistory();
+  const history = useHistory();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -14,6 +14,7 @@ const EditProfile = () => {
     address: "",
     contactNumber: "",
     emailAddress: "",
+    username: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ const EditProfile = () => {
       address,
       contactNumber,
       emailAddress,
+      username,
     } = formData;
 
     const patchData = {
@@ -37,9 +39,8 @@ const EditProfile = () => {
       address,
       cnumber: contactNumber,
       email: emailAddress,
-      verified: 1,
+      username,
     };
-
     try {
       setLoading(true);
       setError(null);
@@ -86,7 +87,8 @@ const EditProfile = () => {
 
       if (response.ok) {
         setSuccessMessage("Profile deleted successfully!");
-        // You may want to redirect the user to a different page after deletion
+        // Redirect to a different page after deletion
+        history.push("/home");
       } else {
         setError("Failed to delete profile");
       }
@@ -102,19 +104,20 @@ const EditProfile = () => {
       <h1>Edit Profile</h1>
       <p>
         Make sure that all of the inputs are filled by entries. We might lose
-        the other data if we patch only few from the form.
+        the other data if we patch only a few from the form.
       </p>
       <div className="edit-board">
         <div className="edit-info">
           <div className="editbox">
             <div className="editcard">
-              <label>First Name</label> <br />
+              <label>First Name</label>
+              <br />
               &nbsp; &nbsp;
               <input
                 className="login-input"
                 id="editinput"
                 type="text"
-                placeholder="edit first name"
+                placeholder="Edit first name"
                 value={formData.firstName}
                 onChange={(e) => handleChange("firstName", e.target.value)}
                 required
@@ -129,7 +132,7 @@ const EditProfile = () => {
                 className="login-input"
                 id="editinput"
                 type="text"
-                placeholder="edit middle name"
+                placeholder="Edit middle name"
                 value={formData.middleName}
                 onChange={(e) => handleChange("middleName", e.target.value)}
                 required
@@ -144,7 +147,7 @@ const EditProfile = () => {
                 className="login-input"
                 id="editinput"
                 type="text"
-                placeholder="edit last name"
+                placeholder="Edit last name"
                 value={formData.lastName}
                 onChange={(e) => handleChange("lastName", e.target.value)}
                 required
@@ -161,7 +164,7 @@ const EditProfile = () => {
                 className="login-input"
                 id="editinput"
                 type="text"
-                placeholder="edit address"
+                placeholder="Edit address"
                 value={formData.address}
                 onChange={(e) => handleChange("address", e.target.value)}
                 required
@@ -176,7 +179,7 @@ const EditProfile = () => {
                 className="login-input"
                 id="editinput"
                 type="text"
-                placeholder="edit contact number"
+                placeholder="Edit contact number"
                 value={formData.contactNumber}
                 onChange={(e) => handleChange("contactNumber", e.target.value)}
                 required
@@ -191,7 +194,7 @@ const EditProfile = () => {
                 className="login-input"
                 id="editinput"
                 type="text"
-                placeholder="edit email address"
+                placeholder="Edit email address"
                 value={formData.emailAddress}
                 onChange={(e) => handleChange("emailAddress", e.target.value)}
                 required
@@ -203,28 +206,27 @@ const EditProfile = () => {
         <div className="edit-photo">
           <form className="editbts">
             <br />
-            <button
-              id="browse-rec"
-              type="button"
-              onClick={handleSubmit}
-              disabled={loading}
-            >
-              {loading ? "Updating..." : "Update Profile"}
-            </button>
+            <div>
+              <button
+                id="browse-rec"
+                type="button"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? "Updating..." : "Update Profile"}
+              </button>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {successMessage && (
-              <p style={{ color: "green" }}>{successMessage}</p>
-            )}
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              {successMessage && (
+                <p style={{ color: "green" }}>{successMessage}</p>
+              )}
+            </div>
 
-            <button id="del" type="button" onClick={handleDelete}>
-              Delete Profile
-            </button>
-
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {successMessage && (
-              <p style={{ color: "green" }}>{successMessage}</p>
-            )}
+            <div>
+              <button id="del" type="button" onClick={handleDelete}>
+                Delete Profile
+              </button>
+            </div>
           </form>
         </div>
       </div>
